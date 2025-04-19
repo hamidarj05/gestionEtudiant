@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body>
+    <div class="card py-3">
+        <h3 style="text-align: center;">Gestion des etudiants</h3>
+        <div class="d-flex ">
+            <input type="text" placeholder="Nom" class="form-control ms-3" id="nom">
+            <input type="number" placeholder="Age" class="form-control mx-3" id="age">
+            <input type="number" placeholder="Note" class="form-control" id="note">
+            <span class="btn btn-success mx-3" style="cursor: pointer;" onclick="Ajouter()">Ajouter</span>
+        </div>
+        <table border="1" class="table table-bordered" style="margin: 1rem 13px 13px 0;">
+            <thead class="thead">
+                <tr>
+                    <th scope="col" style="background-color: green; color: white; font-size: 18px;">Nom</th>
+                    <th scope="col" style="background-color: green; color: white; font-size: 18px;">Age</th>
+                    <th scope="col" style="background-color: green; color: white; font-size: 18px;">Note</th>
+                    <th scope="col" style="background-color: green; color: white; font-size: 18px;">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+        <div class="d-flex mx-auto my-3">
+            <span onclick="Filtrer()" class="btn btn-success me-2" style="cursor: pointer;">Filtrer (Note>=10) </span>
+            <span onclick="NomsMaj()" class="btn btn-success ms-2" style="cursor: pointer;">Afficher Nom En Majuscules</span>
+        </div>
+        <h4 class=" mx-auto">Moyennes des Notes : <span id="moyenne"></span></h4>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
