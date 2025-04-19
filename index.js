@@ -18,8 +18,7 @@ function hsabMoyenne(){
         moyenneSpan.textContent = (moyenne)
     } 
 }
-
-// window.localStorage.clear()
+  
 
 // ############### nraj3o dakchi li déja m stocké ############### 
 
@@ -162,28 +161,7 @@ function NomsMaj(){
         n.textContent = n.textContent.toUpperCase() 
     }
 }  
-
-
+ 
 
 hsabMoyenne()
 
-
-
-// var buttonmodifier = document.createElement("button")
-//     buttonmodifier.className = "btn btn-warning"
-//     buttonmodifier.textContent = "Modifier"
-//     buttonmodifier.addEventListener("click",()=>{
-//         let tds = tr.querySelectorAll(".td")
-//         tds[0].parentElement.style.backgroundColor = "rgb(177, 177, 177)"
-//         for (td of tds){
-//             let input = document.createElement("input")
-//             input.value = td.textContent
-//             input.style.border = "1px solid rgb(145, 145, 145)"
-//             input.style.borderRadius = "7px"
-//             td.textContent = ""
-//             td.appendChild(input)
-//         } 
-//     })
-//     td.appendChild(buttonmodifier)
-//     tr.appendChild(td)
-//     tbody.appendChild(tr)
