@@ -3,13 +3,33 @@ let filtration = []
 let data = undefined
 const tbody = document.getElementById("tbody")
 
+// ############### 7sab d Moyenne ############### 
+
+function hsabMoyenne(){
+    let moyenneSpan = document.getElementById("moyenne")
+    let notes = tbody.querySelectorAll(".note") 
+    let somme = 0
+    for (n of notes){ 
+        somme += Number(n.textContent)  
+    }
+
+    if (somme > 0){
+        let moyenne = somme/notes.length
+        moyenneSpan.textContent = (moyenne)
+    } 
+}
+
+// window.localStorage.clear()
+
 // ############### nraj3o dakchi li déja m stocké ############### 
 
 
-for (let i = 1 ; i <= window.localStorage.length; i++){
+for (let i = 0 ; i < window.localStorage.length; i++){ 
     let tr = document.createElement("tr")
-    let info = window.localStorage.getItem(i)
+    let info = window.localStorage.getItem(window.localStorage.key(i))
+    console.log(window.localStorage.getItem(window.localStorage.key(i)))
     info = info.split(",")
+    console.log(localStorage)
     let oblg = ["td nom","td age","td note"]
     let index = 0
     for (elem of info){
@@ -25,12 +45,21 @@ for (let i = 1 ; i <= window.localStorage.length; i++){
     buttonSupprimer.className = "btn btn-danger"
     buttonSupprimer.textContent = "Supprimer"
     buttonSupprimer.addEventListener("click",()=>{
-        tbody.removeChild(tr)
+        tbody.removeChild(tr) 
+        i = window.localStorage.key(i)
         window.localStorage.removeItem(i)
+        hsabMoyenne() 
     }) 
     td.appendChild(buttonSupprimer)
     tr.appendChild(td)
     tbody.appendChild(tr) 
+    hsabMoyenne() 
+}
+
+function viderInput(){
+    document.getElementById("nom").value = ""
+    document.getElementById("age").value = ""
+    document.getElementById("note").value = ""  
 }
 
 // ############### Ajouter tr f table ############### 
@@ -39,6 +68,22 @@ function Ajouter(){
     const nom = document.getElementById("nom").value
     const age = document.getElementById("age").value
     const note = document.getElementById("note").value 
+    console.log(typeof(Number(String)))
+    if(Number(note)> 20 && Number(age)> 33 || Number(age)< 16){
+        alert("Enterer des chiffres valid Majiyinch ntflaw")
+        viderInput() 
+        return
+    }else if(Number(age)> 33 || Number(age)< 16){
+        alert("Age Invalid Entrer Une Age Valid Majiyinch ntflaw")
+        viderInput() 
+        return
+    }else if(Number(note)> 20){
+        alert("Note Invalid Entrer Une Note Valid Majiyinch ntflaw")
+        viderInput() 
+        return 
+    }else{
+        console.log("ok")
+    }
     if (nom == "" || age == "" || note == ""){ 
         alert("3mar les infos asahbi") 
         return
@@ -58,7 +103,7 @@ function Ajouter(){
         }
     } 
     etudiant = [nom,age,note]
-    window.localStorage.setItem(window.localStorage.length + 1 , etudiant)
+    window.localStorage.setItem("Tache" + window.localStorage.length + 1, etudiant)
     etudiants.push(etudiant)
     var tr = document.createElement("tr")
     var td = document.createElement("td")
@@ -82,17 +127,16 @@ function Ajouter(){
     buttonSupprimer.textContent = "Supprimer"
     buttonSupprimer.addEventListener("click",()=>{
         tbody.removeChild(tr)
-        let key = window.localStorage.length + 1
-        console.log("hamid",window.localStorage.length + 1 )
+        let key = window.localStorage.length + 1 
         window.localStorage.removeItem(key)
+        hsabMoyenne() 
     }) 
     td.appendChild(buttonSupprimer)
     tr.appendChild(td)
     tbody.appendChild(tr) 
-    document.getElementById("nom").value = ""
-    document.getElementById("age").value = ""
-    document.getElementById("note").value = "" 
-}
+    viderInput() 
+    hsabMoyenne()
+} 
 
 // ############### Filtrage d les notes ############### 
 
@@ -107,36 +151,21 @@ function Filtrer(){
                 }
             }
         }
-    } 
+    }  
 }      
 
 // ############### 7awal L majuscule ############### 
 
 function NomsMaj(){
     let noms = tbody.querySelectorAll(".nom") 
-    for (nom of noms){ 
-        nom.textContent = nom.textContent.toUpperCase()
-        console.log("ok")
+    for (n of noms){ 
+        n.textContent = n.textContent.toUpperCase() 
     }
 }  
 
-// ############### 7sab d Moyenne ############### 
-
-let moyenneSpan = document.getElementById("moyenne")
-let notes = tbody.querySelectorAll(".note") 
-let somme = 0
-for (n of notes){ 
-    somme += Number(n.textContent) 
-    console.log(n.textContent)
-}
-
-if (somme > 0){
-    let moyenne = somme/notes.length
-    moyenneSpan.textContent = (moyenne)
-}
 
 
-// window.localStorage.clear()
+hsabMoyenne()
 
 
 
