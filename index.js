@@ -1,6 +1,8 @@
 let etudiants = []
+
 let filtration = []
-let data = undefined
+
+
 const tbody = document.getElementById("tbody")
 
 // ############### 7sab d Moyenne ############### 
@@ -18,41 +20,65 @@ function hsabMoyenne(){
         moyenneSpan.textContent = (moyenne)
     } 
 }
-  
+
+// window.localStorage.clear()
 
 // ############### nraj3o dakchi li déja m stocké ############### 
 
+console.log(localStorage)
 
-for (let i = 0 ; i < window.localStorage.length; i++){ 
-    let tr = document.createElement("tr")
-    let info = window.localStorage.getItem(window.localStorage.key(i))
-    console.log(window.localStorage.getItem(window.localStorage.key(i)))
-    info = info.split(",")
-    console.log(localStorage)
-    let oblg = ["td nom","td age","td note"]
-    let index = 0
-    for (elem of info){
-        let info  = elem
-        var td = document.createElement("td")
-        td.textContent = info 
-        td.className = oblg[index]
-        tr.appendChild(td)
-        index++
+for (let i = 0 ; i < window.localStorage.length; i++){  
+    etudiants = []
+    let noms = window.localStorage.getItem("Etudiants").split(",")
+    for (n of noms) {
+        etudiants.push(n)
     } 
-    var td = document.createElement("td")
-    var buttonSupprimer = document.createElement("button")
-    buttonSupprimer.className = "btn btn-danger"
-    buttonSupprimer.textContent = "Supprimer"
-    buttonSupprimer.addEventListener("click",()=>{
-        tbody.removeChild(tr) 
-        i = window.localStorage.key(i)
-        window.localStorage.removeItem(i)
-        hsabMoyenne() 
-    }) 
-    td.appendChild(buttonSupprimer)
-    tr.appendChild(td)
-    tbody.appendChild(tr) 
-    hsabMoyenne() 
+    
+    if(i < etudiants.length){
+        console.log(noms)
+        let nom = noms[i]
+        if(nom == ""){
+            continue
+        }
+        console.log(nom)
+        console.log(window.localStorage.getItem(nom))
+        if (window.localStorage.getItem(nom) == null){
+            continue
+        }
+        let info = window.localStorage.getItem(nom).split(",")
+        let age = info[0]
+        let note = info[1]
+        var tr = document.createElement("tr")
+        var td = document.createElement("td")
+        td.textContent = nom
+        td.className = "td nom"  
+        td.style.fontSize = "18px"
+        tr.appendChild(td) 
+        var td = document.createElement("td")
+        td.textContent = age 
+        td.className = "td age"
+        td.style.fontSize = "18px"
+        tr.appendChild(td)
+        var td = document.createElement("td")
+        td.textContent = note
+        td.className = "td note"
+        td.style.fontSize = "18px"
+        tr.appendChild(td)
+        var td = document.createElement("td") 
+        var buttonSupprimer = document.createElement("button")
+        buttonSupprimer.className = "btn btn-danger"
+        buttonSupprimer.textContent = "Supprimer"
+        buttonSupprimer.addEventListener("click",()=>{
+            tbody.removeChild(tr) 
+            noms.splice(i, 1)
+            window.localStorage.setItem("Etudiants",noms.join(","))
+            window.localStorage.removeItem(nom)
+            hsabMoyenne()
+        }) 
+        td.appendChild(buttonSupprimer)
+        tr.appendChild(td)
+        tbody.appendChild(tr)  
+    }
 }
 
 function viderInput(){
@@ -64,10 +90,9 @@ function viderInput(){
 // ############### Ajouter tr f table ############### 
 
 function Ajouter(){
-    const nom = document.getElementById("nom").value
-    const age = document.getElementById("age").value
-    const note = document.getElementById("note").value 
-    console.log(typeof(Number(String)))
+    var nom = document.getElementById("nom").value 
+    var age = document.getElementById("age").value
+    var note = document.getElementById("note").value 
     if(Number(note)> 20 && Number(age)> 33 || Number(age)< 16){
         alert("Enterer des chiffres valid Majiyinch ntflaw")
         viderInput() 
@@ -83,27 +108,17 @@ function Ajouter(){
     }else{
         console.log("ok")
     }
+
     if (nom == "" || age == "" || note == ""){ 
         alert("3mar les infos asahbi") 
         return
-    }
-    let etudiant = {
-        nom : nom,
-        age : age,
-        note : note
-    }
-    for (etud of etudiants){
-        if (etud.nom == etudiant.nom){
-            alert("Etudiant Déja Ajouter") 
-            document.getElementById("nom").value = ""
-            document.getElementById("age").value = ""
-            document.getElementById("note").value = "" 
-            return
-        }
     } 
-    etudiant = [nom,age,note]
-    window.localStorage.setItem("Tache" + window.localStorage.length + 1, etudiant)
-    etudiants.push(etudiant)
+    
+    let etudiant = [age,note]
+
+    window.localStorage.setItem(nom, etudiant) // Stocké les info dyal les etudiants
+
+    etudiants.push(nom)
     var tr = document.createElement("tr")
     var td = document.createElement("td")
     td.textContent = nom
@@ -125,14 +140,15 @@ function Ajouter(){
     buttonSupprimer.className = "btn btn-danger"
     buttonSupprimer.textContent = "Supprimer"
     buttonSupprimer.addEventListener("click",()=>{
-        tbody.removeChild(tr)
-        let key = window.localStorage.length + 1 
-        window.localStorage.removeItem(key)
+        tbody.removeChild(tr) 
+        window.localStorage.removeItem(nom)
         hsabMoyenne() 
     }) 
     td.appendChild(buttonSupprimer)
     tr.appendChild(td)
     tbody.appendChild(tr) 
+    window.localStorage.setItem("Etudiants",etudiants)
+    console.log(localStorage)
     viderInput() 
     hsabMoyenne()
 } 
@@ -161,7 +177,9 @@ function NomsMaj(){
         n.textContent = n.textContent.toUpperCase() 
     }
 }  
- 
+
+
 
 hsabMoyenne()
+
 
