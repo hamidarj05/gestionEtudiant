@@ -69,7 +69,7 @@ for (let i = 0 ; i < window.localStorage.length; i++){
         buttonSupprimer.className = "btn btn-danger"
         buttonSupprimer.textContent = "Supprimer"
         buttonSupprimer.addEventListener("click",()=>{
-            tbody.removeChild(tr) 
+            tbody.removeChild(tr)
             noms.splice(i, 1)
             window.localStorage.setItem("Etudiants",noms.join(","))
             window.localStorage.removeItem(nom)
@@ -109,7 +109,7 @@ function Ajouter(){
         console.log("ok")
     }
 
-    if (nom == "" || age == "" || note == ""){ 
+    if (nom.trim() == "" || age.trim() == "" || note.trim() == ""){ 
         alert("3mar les infos asahbi") 
         return
     } 
@@ -140,9 +140,11 @@ function Ajouter(){
     buttonSupprimer.className = "btn btn-danger"
     buttonSupprimer.textContent = "Supprimer"
     buttonSupprimer.addEventListener("click",()=>{
-        tbody.removeChild(tr) 
-        window.localStorage.removeItem(nom)
-        hsabMoyenne() 
+        if(window.confirm("Wach Mt2akad baghi tmsa7 Tache!!!!")){
+            tbody.removeChild(tr) 
+            window.localStorage.removeItem(nom)
+            hsabMoyenne() 
+        }
     }) 
     td.appendChild(buttonSupprimer)
     tr.appendChild(td)
@@ -183,3 +185,22 @@ function NomsMaj(){
 hsabMoyenne()
 
 
+
+// var buttonmodifier = document.createElement("button")
+//     buttonmodifier.className = "btn btn-warning"
+//     buttonmodifier.textContent = "Modifier"
+//     buttonmodifier.addEventListener("click",()=>{
+//         let tds = tr.querySelectorAll(".td")
+//         tds[0].parentElement.style.backgroundColor = "rgb(177, 177, 177)"
+//         for (td of tds){
+//             let input = document.createElement("input")
+//             input.value = td.textContent
+//             input.style.border = "1px solid rgb(145, 145, 145)"
+//             input.style.borderRadius = "7px"
+//             td.textContent = ""
+//             td.appendChild(input)
+//         } 
+//     })
+//     td.appendChild(buttonmodifier)
+//     tr.appendChild(td)
+//     tbody.appendChild(tr)
